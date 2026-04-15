@@ -1,0 +1,146 @@
+/* ============================================
+   SKAMBY - Estilos Personalizados
+   ============================================ */
+
+:root {
+    --skamby-green: #009473;
+    --skamby-green-dark: #007a5e;
+    --skamby-green-light: #e8f5f2;
+    --skamby-gray-bg: #F8F9FA;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--skamby-green);
+    border-radius: 10px;
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.logo {
+    transition: var(--transition);
+}
+.logo:hover {
+    transform: scale(1.02);
+}
+
+.nav-links a {
+    transition: var(--transition);
+}
+.nav-links a:hover {
+    transform: translateY(-2px);
+}
+
+.hero {
+    background: linear-gradient(135deg, #009473, #007a5e) !important;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '♻️';
+    position: absolute;
+    font-size: 15rem;
+    opacity: 0.05;
+    bottom: -50px;
+    right: -50px;
+    transform: rotate(-15deg);
+}
+.hero h1 {
+    animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-bar {
+    transition: var(--transition);
+}
+.search-bar:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.categoria-btn {
+    transition: var(--transition);
+}
+.categoria-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.card {
+    transition: var(--transition);
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-img {
+    transition: transform 0.5s ease;
+}
+.card:hover .card-img {
+    transform: scale(1.08);
+}
+
+.favorito-btn {
+    transition: var(--transition);
+}
+.favorito-btn:hover {
+    transform: scale(1.15);
+    background: #ff4757;
+    color: white;
+}
+.favorito-btn.favoritado {
+    background: #ff4757;
+    color: white;
+}
+
+.btn-submit {
+    transition: var(--transition);
+}
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.dark-mode-toggle {
+    transition: var(--transition);
+}
+.dark-mode-toggle:hover {
+    transform: rotate(15deg);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    .categoria-btn {
+        padding: 0.75rem 1rem;
+    }
+    .categoria-btn i {
+        font-size: 1.2rem;
+    }
+}

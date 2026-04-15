@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skamby - Trocas e Vendas Sustentáveis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- ESTILOS EXTERNO - style.css -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Fallback apenas - o style.css tem versões mais bonitas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #2D3436;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #eee;
+        }
+
+        body.dark-mode .card {
+            background: #2d2d44;
+            color: #eee;
+        }
+
+        body.dark-mode .navbar {
+            background: #16213e;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #009473;
+            text-decoration: none;
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: #2D3436;
+        }
+
+        body.dark-mode .logo span {
+            color: #eee;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #6c757d;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: #009473;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #009473, #007a5e);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 148, 115, 0.3);
+        }
+
+        .avatar-logado {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .avatar-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #009473;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .hero {
+            background: #009473;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            max-width: 60%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+
+        .search-bar i {
+            color: #009473;
+            margin-right: 0.5rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 0.8rem;
+            background: transparent;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .categorias-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .categorias-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .categoria-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        .categoria-btn i {
+            font-size: 1.5rem;
+        }
+
+        .categoria-btn.ativo {
+            border-color: #009473;
+            background: #e8f5f2;
+            color: #009473;
+        }
+
+        .produtos-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .produtos-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .ver-todos {
+            color: #009473;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .card-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            background: #e9ecef;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .favorito-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .favorito-btn.favoritado {
+            color: #ff4757;
+        }
+
+        .card-info {
+            padding: 1rem;
+        }
+
+        .card-tipo {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tipo-troca {
+            background: #d4f1f4;
+            color: #009473;
+        }
+
+        .tipo-venda {
+            background: #ffe5e5;
+            color: #ff6b6b;
+        }
+
+        .card-titulo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-preco {
+            color: #009473;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .card-descricao {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        body.dark-mode .modal-content {
+            background: #2d2d44;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-submit {
+            background: #009473;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: #007a5e;
+        }
+
+        .close-modal {
+            float: right;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .form-footer a {
+            color: #009473;
+            text-decoration: none;
+        }
+
+        .modal-publicar .modal-content {
+            max-width: 500px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .search-bar {
+                max-width: 90%;
+            }
+            .produtos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">skamby<span>.eco</span></div>
+        <div class="nav-links">
+            <a href="#" id="abrirPublicar"><i class="fas fa-plus-circle"></i> Publicar</a>
+            <a href="#" id="btnExplorar"><i class="fas fa-compass"></i> Explorar</a>
+            <a href="#" id="btnFavoritos"><i class="fas fa-heart"></i> Favoritos</a>
+            <a href="#" id="btnChat"><i class="fas fa-comment"></i> Chat</a>
+            <a href="#" id="btnPerfil"><i class="fas fa-user"></i> Perfil</a>
+        </div>
+        <div class="user-area">
+            <button class="login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Entrar
+            </button>
+            <div class="avatar-logado" id="avatarLogado">
+                <div class="avatar-img" id="avatarImg">K</div>
+                <span id="nomeUsuario">Kauan</span>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+            <button class="dark-mode-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Modais -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLoginModal">&times;</span>
+            <h3><i class="fas fa-leaf" style="color: #009473;"></i> Bem-vindo ao Skamby</h3>
+            <form id="formLogin">
+                <div class="form-group">
+                    <label>E-mail ou usuário</label>
+                    <input type="text" id="loginEmail" placeholder="exemplo@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginSenha" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">Entrar</button>
+                <div class="form-footer">
+                    <a href="#" id="abrirCadastro">Não tem conta? Cadastre-se</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="cadastroModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeCadastroModal">&times;</span>
+            <h3><i class="fas fa-user-plus" style="color: #009473;"></i> Criar conta Skamby</h3>
+            <form id="formCadastro">
+                <div class="form-group">
+                    <label>Nome completo</label>
+                    <input type="text" id="cadastroNome" required>
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="cadastroEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="cadastroSenha" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar senha</label>
+                    <input type="password" id="cadastroConfirmarSenha" required>
+                </div>
+                <button type="submit" class="btn-submit">Cadastrar</button>
+                <div class="form-footer">
+                    <a href="#" id="voltarLogin">Já tenho conta! Fazer login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="publicarModal" class="modal modal-publicar">
+        <div class="modal-content">
+            <span class="close-modal" id="closePublicarModal">&times;</span>
+            <h3>📢 Publicar anúncio</h3>
+            <form id="formPublicar">
+                <div class="form-group">
+                    <label>Título do produto</label>
+                    <input type="text" id="produtoTitulo" required>
+                </div>
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="produtoCategoria">
+                        <option value="roupas">Roupas</option>
+                        <option value="eletronicos">Eletrônicos</option>
+                        <option value="moveis">Móveis</option>
+                        <option value="livros">Livros</option>
+                        <option value="acessorios">Acessórios</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="produtoTipo">
+                        <option value="troca">Troca</option>
+                        <option value="venda">Venda</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preço (se for venda)</label>
+                    <input type="text" id="produtoPreco" placeholder="R$ 00,00">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="produtoDescricao" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Publicar anúncio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero">
+        <h1>Dê nova vida aos seus objetos</h1>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="O que você procura? Ex: cadeira, livro, bicicleta..." id="searchInput">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="categorias-section">
+            <div class="section-header">
+                <h2>Categorias</h2>
+            </div>
+            <div class="categorias-grid" id="categoriasGrid">
+                <button class="categoria-btn ativo" data-cat="todos"><i class="fas fa-th-large"></i> Todos</button>
+                <button class="categoria-btn" data-cat="roupas"><i class="fas fa-tshirt"></i> Roupas</button>
+                <button class="categoria-btn" data-cat="eletronicos"><i class="fas fa-laptop"></i> Eletrônicos</button>
+                <button class="categoria-btn" data-cat="moveis"><i class="fas fa-couch"></i> Móveis</button>
+                <button class="categoria-btn" data-cat="livros"><i class="fas fa-book"></i> Livros</button>
+                <button class="categoria-btn" data-cat="acessorios"><i class="fas fa-gem"></i> Acessórios</button>
+                <button class="categoria-btn" data-cat="outros"><i class="fas fa-box"></i> Outros</button>
+            </div>
+        </div>
+
+        <div class="produtos-header">
+            <h2>Produtos recentes (<span id="produtosCount">0</span>)</h2>
+            <a href="#" class="ver-todos" id="verTodos">Ver todos →</a>
+        </div>
+        <div class="produtos-grid" id="produtosGrid">
+            <!-- Cards serão inseridos aqui -->
+        </div>
+    </div>
+
+    <!-- CORRIGIDO: Agora carrega o script.js externo -->
+    <script src="script.js"></script>
+</body>
+</html>

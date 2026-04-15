@@ -44,4 +44,12 @@ Este projeto é uma base de demonstração e não possui integração com backen
 * Sistema de chat funcional
 * Deploy online
 
+👥 Equipe
+Francisco Valdenisio da Silva Santos
+João Carlos de Oliveira Sabino
+Kauan dos Santos Lima
+Maria Clara Pereira Sombra
+Maria Luiza Albano Almeida
+
+
 
